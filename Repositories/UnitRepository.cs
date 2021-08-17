@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Utilities;
 
 namespace InventoryManager.Repositories
 {
@@ -34,9 +35,32 @@ namespace InventoryManager.Repositories
             return unit;
         }
 
-        public List<Unit> GetAllUnits()
+        public List<Unit> GetAllUnits(string sortProperty, SortOrder sortOrder)
         {
             List<Unit> units = _context.Units.ToList();
+
+            if (sortProperty.ToLower() == "name")
+            {
+                if (sortOrder == SortOrder.Ascending)
+                {
+                    units = units.OrderBy(n => n.Name).ToList();
+                }
+                else
+                {
+                    units = units.OrderByDescending(n => n.Name).ToList();
+                }
+            }
+            else
+            {
+                if (sortOrder == SortOrder.Ascending)
+                {
+                    units = units.OrderBy(d => d.Description).ToList();
+                }
+                else
+                {
+                    units = units.OrderByDescending(d => d.Description).ToList();
+                }
+            }
             return units;
         }
 

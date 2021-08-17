@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InventoryManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210804234531_InitialDbSetup")]
+    [Migration("20210814075015_InitialDbSetup")]
     partial class InitialDbSetup
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -2,7 +2,10 @@
 
 @{
     ViewData["Title"] = "Index";
+    SortModel sortModel = (SortModel)ViewData["sortModel"];
 }
+
+<link href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" rel="stylesheet" />
 
 <h1>Index</h1>
 
@@ -16,10 +19,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                <i class="@sortModel.GetColumn("name").SortIcon" aria-hidden="true"></i>
+                <a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("name").SortExpression">
+                    @Html.DisplayNameFor(model => model.Name)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                <i class="@sortModel.GetColumn("description").SortIcon" aria-hidden="true"></i>
+                <a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("description").SortExpression">
+                    @Html.DisplayNameFor(model => model.Description)
+                </a>
             </th>
             <th></th>
         </tr>

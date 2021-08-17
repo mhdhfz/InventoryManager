@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using InventoryManager.Interfaces;
+using Utilities;
 
 namespace InventoryManager.Controllers
 {
@@ -19,11 +20,19 @@ namespace InventoryManager.Controllers
             _unitRepo = unitRepo;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string sortExpression="")
         {
-            List<Unit> units = _unitRepo.GetAllUnits();
+            SortModel sortModel = new();
+
+            sortModel.AddColumn("name");
+            sortModel.AddColumn("description");
+            sortModel.ApplySort(sortExpression);
+            ViewData["sortModel"] = sortModel;
+            List<Unit> units = _unitRepo.GetAllUnits(sortModel.SortedProperty, sortModel.SortedOrder);
             return View(units);
         }
+
+
 
         [HttpGet]
         public IActionResult Create()
